@@ -12,38 +12,40 @@ const cards = document.getElementById("pokedex");
 
 
 // paso 2: Pedir datos a la API 
-const fetchUser = () => {
+const fetchPokemonList = () => {
     const promises = [];
   
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 120; i++) {
       const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
       promises.push(fetch(url).then((res) => res.json()));
     }
+
   
     Promise.all(promises).then((results) => {
       console.log(results);
-      const user = results.map((result) => ({
+      const pokemon = results.map((result) => ({
+        id: result.id,
+        image: result.sprites['front_shiny'],
         name: result.name,
-        image: result.sprites['front_default'],
-        type: result.types.map((type) => type.type.name).join(', '),
-        id: result.id
+        type: result.types.map((type) => type.type.name).join(', '),      
+        // abilities: result.abilities.map((ability) => ability.ability.name)        
       }));
-      displayUser(user);
+      displayPokemon(pokemon);
     });
   };
   
 
   // paso 3: crear los elementos en el DOM
-  const displayUser = (user) => {
-    console.log(user);
+  const displayPokemon = (pokemon) => {
+    console.log(pokemon);
   
-    const myUser = user.map((newUser) =>
+    const myUser = pokemon.map((newUser) =>
           `
       <li>
-          <h2>${newUser.name}</h2>
+          <p>Nº ${newUser.id}</p>
           <img src="${newUser.image}">
-          <p>${newUser.type}</p>
-          <p>${newUser.id}</p>
+          <h2>${newUser.name}</h2>          
+          <p>Type: ${newUser.type}</p>
       </li>
       `
       )
@@ -52,5 +54,5 @@ const fetchUser = () => {
   };
   
 
-  document.getElementById('pokemonList').addEventListener('click', fetchUser);
+  document.getElementById('pokemonList').addEventListener('click', fetchPokemonList);
 //   fetchUser();

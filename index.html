@@ -14,27 +14,30 @@
 
   <body id="body">
     <main class="main">
-      <h2 class="title">Pokedex</h2>
       <img class="logo" src="./app/assets/logo.png" alt="logo" />
+      <h2 class="title">Pokedex</h2>
 
       <div class="button-container">
-        <button id="pokemonList" class="btn btn-list" type="button">POKEMON LIST</button>
-        <button id="randomPokemon" class="btn btn-random" type="button">RANDOM POKEMON</button>
-      </div>
+        <div class="list-container">
+          <button id="pokemonList" class="btn btn-list" type="button">
+            POKEMON LIST
+          </button>
+          <button id="randomPokemon" class="btn btn-random" type="button">
+            RANDOM POKEMON
+          </button>
+        </div>
 
-      <div class="find-container">
-        <label class="search-label"></label>
-        <input id="search" type="test" />
-        <button id="searchPokemon" class="btn btn-list" type="button">SEARCH</button>
+        <div class="find-container">
+          <label class="search-label"></label>
+          <input id="search" type="text" name="pokeName" class="name" />
+          <button id="searchPokemon" class="btn btn-list" type="button">
+            SEARCH
+          </button>
+        </div>
       </div>
 
       <ul id="pokedex" class="flex-container"></ul>
     </main>
-
-    
-    
-      
-    
 
     <script src="./app/js/index.js"></script>
   </body>
