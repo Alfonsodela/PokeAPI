@@ -1,0 +1,20 @@
+import { fetchPokemonList } from "../api/call-to-api-list";
+
+const displayPokemonList = (pokemon) => {
+    console.log(pokemon);
+    
+    const myUser = pokemon.map((newUser) =>
+          `
+      <li>
+          <p>Nº ${newUser.id}</p>
+          <img src="${newUser.image}">
+          <h2>${newUser.name}</h2>          
+          <p>Type: ${newUser.type}</p>
+      </li>
+      `
+      )
+      .join("");
+    pokedex.innerHTML = myUser;
+  };
+    
+  export {displayPokemonList};
