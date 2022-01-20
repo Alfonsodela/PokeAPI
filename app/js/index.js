@@ -6,122 +6,145 @@
 // console.log(fetchUser());
 
 
-
-// paso 2: Pedir datos a la API 
-
-// paso 2.1: Listado
-// const fetchPokemonList = () => {
-    // const promises = [];
-  // 
-    // for (let i = 1; i <= 120; i++) {
-      // const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-      // promises.push(fetch(url).then((res) => res.json()));
-    // }
-// 
-  // 
-    // Promise.all(promises).then((results) => {
-      // console.log(results);
-      // let pokemonList = results.map((result) => ({
-        // id: result.id,
-        // image: result.sprites['front_shiny'],
-        // name: result.name,
-        // type: result.types.map((type) => type.type.name).join(', '),      
-        // abilities: result.abilities.map((ability) => ability.ability.name)        
-      // }));
-      // console.log(pokemonList);
-      // displayPokemonList(pokemonList);
-    // });
-  // };
-// 
-
-  // paso 2.2: Búsqueda
-
-  // const fetchPokemonDetail = async () => {
-    // const baseUrl = `https://pokeapi.co/api/v2/pokemon/`;
-    // const res = await fetch(baseUrl + search.value);
-    // const data = await res.json();
-    // console.log(data);
-
-    // let pokemonDetail = {
-      // id: data.id,
-      // image: data.sprites['front_shiny'],
-      // name: data.name,
-      // type: data.types.map((type) => type.type.name).join(', '),
-    // }; 
-    // console.log(pokemonDetail)
-    // displayPokemonDetail(pokemonDetail)   
-  // };
+// POKEMON LIST
+// Paso 1. Pedir datos a la API
+const fetchPokemonList = () => {
+    const promises = [];
   
+    for (let i = 1; i <= 120; i++) {
+      const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+      promises.push(fetch(url).then((res) => res.json()));
+    }
+
+  
+    Promise.all(promises).then((results) => {
+      let pokemonList = results.map((result) => ({
+        id: result.id,
+        image: result.sprites['front_shiny'],
+        name: result.name,
+        type: result.types.map((type) => type.type.name).join(', '),      
+        abilities: result.abilities.map((ability) => ability.ability.name)        
+      }));
+      displayPokemonList(pokemonList);
+    });
+  };
 
 
-  // paso 2.3: Random
+// Paso 2. Crear los elementos en el DOM
+const displayPokemonList = (pokemonList) => {
+  const pokedexList = document.getElementById("pokedex");
+
+  const myUser = pokemonList.map((newUser) =>
+        `
+    <li class="flex-item">
+        <p class="flex-item-subtitle">Nº ${newUser.id}</p>
+        <img class="flex-item-image" src="${newUser.image}">
+        <h2 class="flex-item-title">${newUser.name}</h2>          
+        <p class="flex-item-subtitle">Type: ${newUser.type}</p>
+    </li>
+    `
+    )
+    .join("");
+  pokedexList.innerHTML = myUser;
+};
+
+
+// 0. Seleccionar elementos en HTML
+ 
+document.getElementById('pokemonList').addEventListener('click', fetchPokemonList);
+
+
+
+/*********************************************************/
+
+
+// POKEMON SEARCH
+// Paso 1. Pedir datos a la API 
+
+  const fetchPokemonDetail = async () => {
+    const baseUrl = `https://pokeapi.co/api/v2/pokemon/`;
+    await fetch(baseUrl + search.value) 
+    .then((res) => res.json())
+    .then((data) => {
+
+      let pokemonDetail = {
+        id: data.id,
+        image: data.sprites['front_shiny'],
+        name: data.name,
+        type: data.types.map((type) => type.type.name).join(', '),
+      }; 
+      displayPokemonDetail(pokemonDetail)   
+    })
+    .catch ((error) => {
+      let pokemonHTMLString =
+        `<div class="flex-item">
+        <p class="flex-item-error">Error 404</p>
+        <p class="flex-item-error">Page not found</p>
+        </div>`;
+        const pokedexDetail = document.getElementById("pokedex");
+        pokedexDetail.innerHTML = pokemonHTMLString;
+        
+    });
+  };
+
+
+// Paso 2. Pintar elementos en el DOM 
+
+const displayPokemonDetail = (pokemonDetail) => {
+  const pokedexDetail = document.getElementById("pokedex1");
+  const pokemonHTMLDetail =
+    `<li class="flex-item1">
+        <p class="flex-item-subtitle">Nº ${pokemonDetail.id}</p>
+        <img class="flex-item-image" src="${pokemonDetail.image}">
+        <h2 class="flex-item-title">${pokemonDetail.name}</h2>          
+        <p class="flex-item-subtitle">Type: ${pokemonDetail.type}</p>
+    </li>`;
+    pokedexDetail.innerHTML = pokemonHTMLDetail
+};
+  
+//0.  Seleccionar elementos en HTML
+
+document.getElementById('searchPokemon').addEventListener('click', fetchPokemonDetail);
+
+
+
+/*********************************************************************/
+
+
+// POKEMON RANDOM
+// Paso 1. Pedir datos a la API
 
   const fetchPokemonRandom = async () => {
     const baseUrl = `https://pokeapi.co/api/v2/pokemon/`;
     const pokeId = Math.round(Math.random() * (150 - 1) + 1);
     const res = await fetch(baseUrl + pokeId);
     const data = await res.json();
-    console.log(data);
 
-    let pokemonDetail = {
+    let pokemonRandom = {
       id: data.id,
       image: data.sprites['front_shiny'],
       name: data.name,
       type: data.types.map((type) => type.type.name).join(', '),
     }; 
-    console.log(pokemonDetail)
-    displayPokemonRandom(pokemonDetail)   
+    displayPokemonRandom(pokemonRandom)
   };
 
 
+// Paso 2. Crear los elementos en el DOM
 
-  // paso 3: crear los elementos en el DOM
-  // paso 3.1: DOM listado
-
-  // const displayPokemonList = (pokemonList) => {
-    // const pokedexList = document.getElementById("pokedex");
-    // console.log(pokemonList);
-  // 
-    // const myUser = pokemonList.map((newUser) =>
-          // `
-      // <li>
-          // <p>Nº ${newUser.id}</p>
-          // <img src="${newUser.image}">
-          // <h2>${newUser.name}</h2>          
-          // <p>Type: ${newUser.type}</p>
-      // </li>
-      // `
-      // )
-      // .join("");
-    // pokedexList.innerHTML = myUser;
-  // };
+const displayPokemonRandom = (pokemonRandom) => {
+  const pokedexDetail = document.getElementById("pokedex1");
+  console.log(pokemonRandom);
+  const pokemonHTMLDetail =
+    `<li class="flex-item1">
+        <p class="flex-item-subtitle">Nº ${pokemonRandom.id}</p>
+        <img class="flex-item-image" src="${pokemonRandom.image}">
+        <h2 class="flex-item-title">${pokemonRandom.name}</h2>          
+        <p class="flex-item-subtitle">Type: ${pokemonRandom.type}</p>
+    </li>`;
+    pokedexDetail.innerHTML = pokemonHTMLDetail
+};
 
 
-  // paso 3.2: DOM búsqueda
-  // const displayPokemonDetail = (pokemonDetail) => {
-    // const pokedexDetail = document.getElementById("pokedex");
-    // console.log(pokemonDetail);
-
-    // const pokemonHTMLDetail =
-      // `<li>
-          // <p>Nº ${data.id}</p>
-          // <img src="${data.image}">
-          // <h2>${data.name}</h2>          
-          // <p>Type: ${data.type}</p>
-      // </li>`.join("");
-      // pokedexDetail.innerHTML = pokemonHTMLDetail
-    //  
-  // };
-
-  // paso 3.3: DOM Random
-
-  
-
-  
-
-
-  // 1. Seleccionar HTML 
-
-// document.getElementById('pokemonList').addEventListener('click', fetchPokemonList);
-// document.getElementById('searchPokemon').addEventListener('click', fetchPokemonDetail);
+// 0. Seleccionar elementos en HTML 
 document.getElementById('randomPokemon').addEventListener('click', fetchPokemonRandom);

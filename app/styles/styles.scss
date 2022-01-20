@@ -1,0 +1,151 @@
+@import "./responsive";
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #91db84;
+  margin: 0;
+  
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  margin: 10px;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto;
+
+  @include mobile{
+    width: 280px;
+    height: 120px;
+  }
+
+  @include tablet {
+    width: 500px;
+    height: 180px;
+  }
+
+  @include desktop {
+    width: 500px;
+    height: 180px;
+    margin-bottom: 45px;
+  }
+  
+}
+
+.title {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 40px;
+  color: white;
+  margin-bottom: 60px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  // margin-bottom: 45px
+}
+
+.list-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px;
+  margin-bottom: 15px;
+
+  @include desktop {
+    width: 600px;
+    margin-bottom: 30px;
+  }
+}
+
+.find-container {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.btn {
+  padding: 8px;
+  border-radius: 10px;
+  border: 4px solid;
+  background-color: #ffcc01;
+  color: #2f68b3;
+
+  @include mobile{
+    margin:  5px;
+  } 
+}
+
+.btn-list {
+  margin-left: 10px;
+}
+
+.name {
+  font-size: 14px;
+  border: transparent 0px;
+}
+
+.flex-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 20px;
+  padding-inline-start: 0;
+  margin-top: 30px;
+}
+
+.flex-container1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.flex-item {
+  border-radius: 10px;
+  list-style: none;
+  /* padding: 40px; */
+  background-color: #f4f4f4;
+  color: #222;
+  text-align: center;
+}
+
+.flex-item1 {
+  width: 350px;
+  margin-right: 68px;
+  border-radius: 10px;
+  list-style: none;
+  /* padding: 40px; */
+  background-color: #f4f4f4;
+  color: #222;
+  text-align: center;
+}
+
+.flex-item-title {
+  font-size: 25px;
+  margin-top: 0px;
+}
+
+.flex-item-subtitle {
+font-size: 20px;
+font-weight: normal;
+margin-bottom: 20px;
+}
+
+.flex-item-image {
+  width: 200px;
+  height: 200px;
+}
