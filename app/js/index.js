@@ -1,10 +1,3 @@
-// const fetchUser = async () => {
-//   await fetch("https://jsonplaceholder.typicode.com/users")
-//     .then((res) => res.json())
-//     .then((res) => console.log(res));
-// };
-// console.log(fetchUser());
-
 
 // POKEMON LIST
 // Paso 1. Pedir datos a la API
@@ -18,13 +11,16 @@ const fetchPokemonList = () => {
 
   
     Promise.all(promises).then((results) => {
+      console.log(results)
       let pokemonList = results.map((result) => ({
         id: result.id,
-        image: result.sprites['front_shiny'],
+        // image: result.sprites['front_shiny'],
+        image: result.sprites.other['official-artwork'].front_default,
         name: result.name,
         type: result.types.map((type) => type.type.name).join(', '),      
         abilities: result.abilities.map((ability) => ability.ability.name)        
       }));
+      
       displayPokemonList(pokemonList);
     });
   };
@@ -63,13 +59,15 @@ document.getElementById('pokemonList').addEventListener('click', fetchPokemonLis
 
   const fetchPokemonDetail = async () => {
     const baseUrl = `https://pokeapi.co/api/v2/pokemon/`;
-    await fetch(baseUrl + search.value) 
+    await fetch(baseUrl + input.value) 
     .then((res) => res.json())
     .then((data) => {
+      
 
       let pokemonDetail = {
         id: data.id,
-        image: data.sprites['front_shiny'],
+        // image: data.sprites['front_shiny'],
+        image: data.sprites.other['official-artwork'].front_default,
         name: data.name,
         type: data.types.map((type) => type.type.name).join(', '),
       }; 
@@ -78,8 +76,8 @@ document.getElementById('pokemonList').addEventListener('click', fetchPokemonLis
     .catch ((error) => {
       let pokemonHTMLString =
         `<div class="flex-item">
-        <p class="flex-item-error">Error 404</p>
-        <p class="flex-item-error">Page not found</p>
+        <p class="flex-item-error"></p>
+        <p class="flex-item-error"></p>
         </div>`;
         const pokedexDetail = document.getElementById("pokedex");
         pokedexDetail.innerHTML = pokemonHTMLString;
@@ -122,7 +120,8 @@ document.getElementById('searchPokemon').addEventListener('click', fetchPokemonD
 
     let pokemonRandom = {
       id: data.id,
-      image: data.sprites['front_shiny'],
+      // image: data.sprites['front_shiny'],
+      image: data.sprites.other['official-artwork'].front_default,
       name: data.name,
       type: data.types.map((type) => type.type.name).join(', '),
     }; 
@@ -148,3 +147,13 @@ const displayPokemonRandom = (pokemonRandom) => {
 
 // 0. Seleccionar elementos en HTML 
 document.getElementById('randomPokemon').addEventListener('click', fetchPokemonRandom);
+
+
+
+
+// const fetchUser = async () => {
+//   await fetch("https://jsonplaceholder.typicode.com/users")
+//     .then((res) => res.json())
+//     .then((res) => console.log(res));
+// };
+// console.log(fetchUser());
