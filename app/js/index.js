@@ -51,9 +51,6 @@ document.getElementById('pokemonList').addEventListener('click', fetchPokemonLis
 
 
 
-/*********************************************************/
-
-
 // POKEMON SEARCH
 // Paso 1. Pedir datos a la API 
 
@@ -106,9 +103,6 @@ document.getElementById('searchPokemon').addEventListener('click', fetchPokemonD
 
 
 
-/*********************************************************************/
-
-
 // POKEMON RANDOM
 // Paso 1. Pedir datos a la API
 
@@ -148,12 +142,3 @@ const displayPokemonRandom = (pokemonRandom) => {
 // 0. Seleccionar elementos en HTML 
 document.getElementById('randomPokemon').addEventListener('click', fetchPokemonRandom);
 
-
-
-
-// const fetchUser = async () => {
-//   await fetch("https://jsonplaceholder.typicode.com/users")
-//     .then((res) => res.json())
-//     .then((res) => console.log(res));
-// };
-// console.log(fetchUser());
