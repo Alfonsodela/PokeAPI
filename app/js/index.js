@@ -7,10 +7,10 @@ const fetchPokemonList = () => {
     const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
     promises.push(fetch(url).then((res) => res.json()));
   }
-  console.log(promises)
+  // console.log(promises)
 
   Promise.all(promises).then((results) => {
-    console.log(results);
+    // console.log(results);
     let pokemonList = results.map((result) => ({
       id: result.id,
       // image: result.sprites['front_shiny'],
@@ -39,6 +39,7 @@ const displayPokemonList = (pokemonList) => {
     `
     )
     .join("");
+    console.log(myUser)
   pokedexList.innerHTML = myUser;
 };
 
