@@ -1,5 +1,5 @@
 // POKEMON LIST
-// Paso 1. Pedir datos a la API
+// 1. Call to API
 const fetchPokemonList = () => {
   const promises = [];
 
@@ -24,7 +24,7 @@ const fetchPokemonList = () => {
   });
 };
 
-// Paso 2. Crear los elementos en el DOM
+// 2. View list
 const displayPokemonList = (pokemonList) => {
   const pokedexList = document.getElementById("pokedex");
 
@@ -43,7 +43,7 @@ const displayPokemonList = (pokemonList) => {
   pokedexList.innerHTML = myUser;
 };
 
-// 0. Seleccionar elementos en HTML
+// 0. DOM
 
 document
   .getElementById("pokemonList")
