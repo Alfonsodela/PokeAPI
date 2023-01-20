@@ -1,25 +1,25 @@
 // POKEMON LIST
 // 1. Call to API
-// const fetchPokemonList = () => {
-//   const pokemonList = [];
+const fetchPokemonList = () => {
+  const pokemonList = [];
 
-//   for (let i = 1; i <= 120; i++) {
-//     const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-//     pokemonList.push(fetch(url).then((res) => res.json()));
-//   }
+  for (let i = 1; i <= 120; i++) {
+    const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+    pokemonList.push(fetch(url).then((res) => res.json()));
+  }
 
-//   Promise.all(pokemonList).then((results) => {
-//     let pokemonList = results.map((result) => ({
-//       id: result.id,
-//       image: result.sprites.other["official-artwork"].front_default,
-//       name: result.name,
-//       type: result.types.map((type) => type.type.name).join(", "),
-//       abilities: result.abilities.map((ability) => ability.ability.name),
-//     }));
+  Promise.all(pokemonList).then((results) => {
+    let pokemonList = results.map((result) => ({
+      id: result.id,
+      image: result.sprites.other["official-artwork"].front_default,
+      name: result.name,
+      type: result.types.map((type) => type.type.name).join(", "),
+      abilities: result.abilities.map((ability) => ability.ability.name),
+    }));
 
-//     displayPokemonList(pokemonList);
-//   });
-// };
+    displayPokemonList(pokemonList);
+  });
+};
 
 // 2. View list
 const displayPokemonList = (pokemonList) => {
@@ -93,7 +93,8 @@ document
 // Paso 1. Pedir datos a la API
 const fetchPokemonRandom = async () => {
   const baseUrl = `https://pokeapi.co/api/v2/pokemon/`;
-  const pokeId = Math.round(Math.random() * (150 - 1) + 1);
+  const pokeId = Math.round(Math.random() * (150 - 1));
+  console.log(pokeId)
   const res = await fetch(baseUrl + pokeId);
   const data = await res.json();
 
@@ -127,65 +128,65 @@ document
 
 // ******
 
-X. Pagination
-const pokedexList = document.getElementById("pokedex")
+// X. Pagination
+// const pokedexList = document.getElementById("pokedex")
 
-const baseURL = "https://pokeapi.co/api/v2/pokemon/";
-let nextLink = '';
-let prevLink = '';
+// const baseURL = "https://pokeapi.co/api/v2/pokemon/";
+// let nextLink = '';
+// let prevLink = '';
 
-const changePg = (value) => {
-  const newURL = `${baseURL}?limit=${value}`
-  getPokemon(newURL)
-}
+// const changePg = (value) => {
+//   const newURL = `${baseURL}?limit=${value}`
+//   getPokemon(newURL)
+// }
 
-const prev = () => {
-  getPokemon(prevLink)
-}
+// const prev = () => {
+//   getPokemon(prevLink)
+// }
 
-const next = () => {
-  getPokemon(nextLink)
-}
+// const next = () => {
+//   getPokemon(nextLink)
+// }
 
-const getPokemon = async (url) => {
-  await fetch(url)
-    .then((res) => res.json())
-    .then((data) => {
-      prevLink = data.previous;
-      nextLink = data.next;
+// const getPokemon = async (url) => {
+//   await fetch(url)
+//     .then((res) => res.json())
+//     .then((data) => {
+//       prevLink = data.previous;
+//       nextLink = data.next;
 
-      showPokemon(data.results)
-      console.log(data.results)
-    })
-}
+//       showPokemon(data.results)
+//       console.log(data.results)
+//     })
+// }
 
-const showPokemon = (array) => {
-  clearContainer();
-  array.map(item => {
-    fetch(item.url)
-      .then((res) => res.json())
-      .then((data) => {
-        loadCard(data)
-      })
-  })
-}
+// const showPokemon = (array) => {
+//   clearContainer();
+//   array.map(item => {
+//     fetch(item.url)
+//       .then((res) => res.json())
+//       .then((data) => {
+//         loadCard(data)
+//       })
+//   })
+// }
 
-const loadCard = (data) => {
-  const id = data.id;
-  const name = data.name
-  const image = data.sprites.other["official-artwork"].front_default
+// const loadCard = (data) => {
+//   const id = data.id;
+//   const name = data.name
+//   const image = data.sprites.other["official-artwork"].front_default
 
-  const pokedexList = document.getElementById("pokedex")
-  let card = document.createElement('li')
-  let content = `
-     <p class="flex-item-subtitle">Nº ${id}</p>
-     <h2 class="flex-item-title">${name}</h2>
-     <img class="flex-item-image" src="${image}">
-   `
-  card.innerHTML = content
-  pokedexList.appendChild(card)
-}
+//   const pokedexList = document.getElementById("pokedex")
+//   let card = document.createElement('li')
+//   let content = `
+//      <p class="flex-item-subtitle">Nº ${id}</p>
+//      <h2 class="flex-item-title">${name}</h2>
+//      <img class="flex-item-image" src="${image}">
+//    `
+//   card.innerHTML = content
+//   pokedexList.appendChild(card)
+// }
 
-const clearContainer = () => pokedexList.innerHTML = "";
+// const clearContainer = () => pokedexList.innerHTML = "";
 
-getPokemon(`${baseURL}?limit=30&offset=0`)
+// getPokemon(`${baseURL}?limit=30&offset=0`)
